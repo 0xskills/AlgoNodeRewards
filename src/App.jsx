@@ -133,17 +133,17 @@ function App() {
   });
 
 
-  const [option, setOption] = useState({ start: '2025-01-23T00:00:00.000Z', end: '2026-01-01T00:00:00.000Z' });
+  const [option, setOption] = useState({ start: '2025-01-23T00:00:00.000Z', end: '2025-04-01T00:00:00.000Z' });
 
   const options = [
     {
       label: '2025 Q1',
       value: { start: '2025-01-23T00:00:00.000Z', end: '2025-04-01T00:00:00.000Z' },
-    }, /*
+    }, 
     {
       label: '2025 Q2',
       value: { start: '2025-04-01T00:00:00.000Z', end: '2025-07-01T00:00:00.000Z' },
-    },
+    },/*
     {
       label: '2025 Q3',
       value: { start: '2025-07-01T00:00:00.000Z', end: '2025-10-01T00:00:00.000Z' },
