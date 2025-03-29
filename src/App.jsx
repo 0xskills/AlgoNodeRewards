@@ -82,8 +82,8 @@ function processTxs(txs, txStakingStart, stakedAmount) {
   let chartLabels = Object.keys(blocksPerDay)
   let chartValues = Object.values(blocksPerDay)
 
-  let first = new Date(data[0].roundTime)
-  let last = new Date(data[data.length - 1].roundTime)
+  let first = new Date(data.length == 0 ? 0 : data[0].roundTime)
+  let last = new Date(data.length == 0 ? 0 : data[data.length - 1].roundTime)
   let days = ((last.getTime() - first.getTime()) / (1000 * 60 * 60 * 24)).toFixed(2)
   let avgBlocksDay = (data.length / days).toFixed(2)
   //console.table([{ 'Total blocks': data.length, 'Total days': days * 1, 'Avg Blocks/Day': avgBlocksDay * 1 }])
@@ -180,16 +180,16 @@ function App() {
         setOption(options[0].value);
         break;
       case '2025 Q1':
-        setOption(options[1].value);
+        setOption(options[0].value);
         break;
       case '2025 Q2':
-        setOption(options[2].value);
+        setOption(options[1].value);
         break;
       case '2025 Q3':
-        setOption(options[3].value);
+        setOption(options[2].value);
         break;
       case '2025 Q4':
-        setOption(options[4].value);
+        setOption(options[3].value);
         break;
     }
   }
@@ -201,6 +201,8 @@ function App() {
 
     console.log(`${address} valid:${AlgoSdk.isValidAddress(address)}`)
     if (!AlgoSdk.isValidAddress(address)) { return; }
+
+    setState((prev) => ({ ...prev, stats: [], txs: [] }));
 
     const indexerClient = new AlgoSdk.Indexer("", "https://mainnet-idx.4160.nodely.dev", "");
 
@@ -217,7 +219,7 @@ function App() {
 
 
       let data = processTxs(txs, option.start, state.staked)
-
+  
       //console.table([data.stats])
       //console.table(data.txs.reverse(), ['amount', 'elapsed', 'earnings', 'apr'])
 
